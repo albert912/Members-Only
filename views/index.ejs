@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Members Only Home</title>
+</head>
+<body>
+    <h1>Welcome to Members Only!</h1>
+
+    <% if (user) { %>
+        <p>Hello, <%= user.email %>! You are logged in.</p>
+        <p>
+          <% if (!user.member && !user.admin) { %>
+            You are logged in but not a member yet. <a href="/join">Join the club</a> to see authors.
+          <% } %>
+        </p>
+    <% } else { %>
+        <p>Please <a href="/login">log in</a> or <a href="/signup">sign up</a>.</p>
+    <% } %>
+
+    <h2>Messages</h2>
+    <ul>
+        <% messages.forEach(function(message) { %>
+            <li>
+                <strong><%= message.title %></strong><br/>
+                <%= message.content %><br/>
+
+                <% if (user && (user.member || user.admin)) { %>
+                    <em>by <%= message.first_name %> <%= message.last_name %></em><br/>
+                    <small><%= new Date(message.timestamp).toLocaleString() %></small><br/>
+                <% } else { %>
+                    <em>by Anonymous</em><br/>
+                <% } %>
+
+                <% if (user && user.admin) { %>
+                    <form action="/delete/<%= message.id %>" method="POST" style="margin-top: 5px;">
+                        <button type="submit">Delete</button>
+                    </form>
+                <% } %>
+            </li>
+            <hr/>
+        <% }); %>
+    </ul>
+</body>
+</html>

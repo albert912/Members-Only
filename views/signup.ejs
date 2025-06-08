@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up - Members Only</title>
+</head>
+<body>
+  <h1>Sign Up</h1>
+
+  <% if (errors && errors.length > 0) { %>
+    <ul style="color: red;">
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <form action="/signup" method="POST">
+    <label for="first_name">First Name:</label><br>
+    <input type="text" id="first_name" name="first_name" required value="<%= oldInput.first_name || '' %>"><br><br>
+
+    <label for="last_name">Last Name:</label><br>
+    <input type="text" id="last_name" name="last_name" required value="<%= oldInput.last_name || '' %>"><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required value="<%= oldInput.email || '' %>"><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="confirmPassword">Confirm Password:</label><br>
+    <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <p>Already have an account? <a href="/login">Log in here</a>.</p>
+</body>
+</html>

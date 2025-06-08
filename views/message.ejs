@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Post a Message - Members Only</title>
+</head>
+<body>
+  <h1>Post a New Message</h1>
+
+  <% if (errors.length > 0) { %>
+    <ul style="color: red;">
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <form action="/message" method="POST">
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title" value="<%= oldInput.title || '' %>" required><br><br>
+
+    <label for="content">Content:</label><br>
+    <textarea id="content" name="content" rows="5" cols="40" required><%= oldInput.content || '' %></textarea><br><br>
+
+    <button type="submit">Post Message</button>
+  </form>
+
+  <p><a href="/">Back to Messages</a></p>
+</body>
+</html>
